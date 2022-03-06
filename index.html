@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="https://unpkg.com/vue@3"></script>
+
+    <div id="app">
+      <button class="btn" @click="passwordCreate">產生新密碼</button>
+      <br />
+      {{ password }}
+      <br />
+      <select name="" id="" v-model="length">
+        <option value="">選擇密碼長度</option>
+        <option v-for="list in lists" :value="list.value">
+          {{ list.item}}
+        </option>
+      </select>
+      <br />
+      <input v-model="upperCount" type="number" />輸入大寫字母數量
+      <br />
+      <input v-model="lowerCount" type="number" />輸入小寫字母數量
+      <br />
+      <input v-model="numberCount" type="number" />輸入阿拉伯數字數量
+      <br />
+      <input v-model="punctuationCount" type="number" />輸入特殊服號數量
+    </div>
+
+    <script>
+      Vue.createApp({
+        data() {
+          return {
+            password: "",
+            lists: [
+              { item: "6位數", value: 6 },
+              { item: "8位數", value: 8 },
+              { item: "10位數", value: 10 },
+              { item: "12位數", value: 12 },
+            ],
+            upperCount: 0,
+            lowerCount: 0,
+            numberCount: 0,
+            punctuationCount: 0,
+            length: 0,
+          };
+        },
+        methods: {
+          getRandomNum(min, max) {
+            return min + Math.floor(Math.random() * (max - min + 1));
+          },
+          passwordCreate() {
+            let number = this.passwordParts(48, 57, this.numberCount);
+            let upper = this.passwordParts(65, 90, this.upperCount);
+            let lower = this.passwordParts(97, 122, this.lowerCount);
+            let punctuation = this.passwordParts(33, 47, this.punctuationCount);
+            this.password = _.shuffle(
+              number + upper + lower + punctuation
+            ).join("");
+          },
+          passwordParts(min, max, count) {
+            let str = "";
+            for (let i = 0; i < count; i++) {
+              str += String.fromCharCode(this.getRandomNum(min, max));
+            }
+            return str;
+          },
+        },
+      }).mount("#app");
+    </script>
+  </body>
+</html>
