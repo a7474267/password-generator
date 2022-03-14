@@ -17,9 +17,12 @@
       <br />
       <select name="" id="" v-model="length">
         <option value="">選擇密碼長度</option>
-        <option v-for="list in lists" :value="list.value">
-          {{ list.item}}
-        </option>
+        <option v-for="list in lists" :value="list.value">{{ list.item}}</option>
+      </select>
+      <br />
+      選擇密碼組數
+      <select name="" id="" v-model="passwordAmounts">
+        <option :value="item" v-for="item in 10">產生{{item}}組密碼</option>
       </select>
       <br />
       <input v-model="upperCount" type="number" />輸入大寫字母數量
@@ -29,6 +32,8 @@
       <input v-model="numberCount" type="number" />輸入阿拉伯數字數量
       <br />
       <input v-model="punctuationCount" type="number" />輸入特殊服號數量
+
+      <p v-for="item in passwordResult">{{item}}</p>
     </div>
 
     <script>
@@ -47,6 +52,8 @@
             numberCount: 0,
             punctuationCount: 0,
             length: 0,
+            passwordAmounts: 0,
+            passwordResult: [],
           };
         },
         methods: {
@@ -54,13 +61,23 @@
             return min + Math.floor(Math.random() * (max - min + 1));
           },
           passwordCreate() {
-            let number = this.passwordParts(48, 57, this.numberCount);
-            let upper = this.passwordParts(65, 90, this.upperCount);
-            let lower = this.passwordParts(97, 122, this.lowerCount);
-            let punctuation = this.passwordParts(33, 47, this.punctuationCount);
-            this.password = _.shuffle(
-              number + upper + lower + punctuation
-            ).join("");
+            this.passwordResult = [];
+            if (
+              this.upperCount + this.lowerCount + this.numberCount + this.punctuationCount != this.length ||
+              this.length === 0
+            ) {
+              alert("請輸入正確的密碼長度");
+              return;
+            }
+
+            for (let i = 1; i <= this.passwordAmounts; i++) {
+              console.log("apple");
+              let number = this.passwordParts(48, 57, this.numberCount);
+              let upper = this.passwordParts(65, 90, this.upperCount);
+              let lower = this.passwordParts(97, 122, this.lowerCount);
+              let punctuation = this.passwordParts(33, 47, this.punctuationCount);
+              this.passwordResult.push(_.shuffle(number + upper + lower + punctuation).join(""));
+            }
           },
           passwordParts(min, max, count) {
             let str = "";
