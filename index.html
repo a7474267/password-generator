@@ -33,13 +33,13 @@
       </select>
       <br />
       <h3>輸入大寫字母數量</h3>
-      <input v-model="upperCount" type="number" />
+      <input v-model.number="upperCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
       <h3>輸入小寫字母數量</h3>
-      <input v-model="lowerCount" type="number" />
+      <input v-model.number="lowerCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
       <h3>輸入阿拉伯數字數量</h3>
-      <input v-model="numberCount" type="number" />
+      <input v-model.number="numberCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
       <h3>輸入特殊服號數量</h3>
-      <input v-model="punctuationCount" type="number" />
+      <input v-model.number="punctuationCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
 
       <h3 v-if="passwordResult.length != 0">新密碼</h3>
       <p v-for="item in passwordResult">{{item}}</p>
