@@ -4,6 +4,14 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
+      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="all.css" />
     <title>Document</title>
   </head>
   <body>
@@ -14,25 +22,26 @@
       <button class="btn" @click="passwordCreate">產生新密碼</button>
       <br />
       {{ password }}
-      <br />
+      <h2>選擇密碼長度</h2>
       <select name="" id="" v-model="length">
-        <option value="">選擇密碼長度</option>
         <option v-for="list in lists" :value="list.value">{{ list.item}}</option>
       </select>
       <br />
-      選擇密碼組數
+      <h2>選擇密碼組數</h2>
       <select name="" id="" v-model="passwordAmounts">
         <option :value="item" v-for="item in 10">產生{{item}}組密碼</option>
       </select>
       <br />
-      <input v-model="upperCount" type="number" />輸入大寫字母數量
-      <br />
-      <input v-model="lowerCount" type="number" />輸入小寫字母數量
-      <br />
-      <input v-model="numberCount" type="number" />輸入阿拉伯數字數量
-      <br />
-      <input v-model="punctuationCount" type="number" />輸入特殊服號數量
+      <h3>輸入大寫字母數量</h3>
+      <input v-model="upperCount" type="number" />
+      <h3>輸入小寫字母數量</h3>
+      <input v-model="lowerCount" type="number" />
+      <h3>輸入阿拉伯數字數量</h3>
+      <input v-model="numberCount" type="number" />
+      <h3>輸入特殊服號數量</h3>
+      <input v-model="punctuationCount" type="number" />
 
+      <h3 v-if="passwordResult.length != 0">新密碼</h3>
       <p v-for="item in passwordResult">{{item}}</p>
     </div>
 
