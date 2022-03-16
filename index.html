@@ -19,37 +19,40 @@
     <script src="https://unpkg.com/vue@3"></script>
 
     <div id="app">
-      <button class="btn" @click="passwordCreate">產生新密碼</button>
-      <br />
-      {{ password }}
-      <h2>選擇密碼長度</h2>
-      <select name="" id="" v-model="length">
-        <option v-for="list in lists" :value="list.value">{{ list.item}}</option>
-      </select>
-      <br />
-      <h2>選擇密碼組數</h2>
-      <select name="" id="" v-model="passwordAmounts">
-        <option :value="item" v-for="item in 10">產生{{item}}組密碼</option>
-      </select>
-      <br />
-      <h3>輸入大寫字母數量</h3>
-      <input v-model.number="upperCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
-      <h3>輸入小寫字母數量</h3>
-      <input v-model.number="lowerCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
-      <h3>輸入阿拉伯數字數量</h3>
-      <input v-model.number="numberCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
-      <h3>輸入特殊服號數量</h3>
-      <input v-model.number="punctuationCount" type="text" onkeyup="value=value.replace(/^(0+)|[^\d]+/g,'')" />
-
-      <h3 v-if="passwordResult.length != 0">新密碼</h3>
-      <p v-for="item in passwordResult">{{item}}</p>
+      <div class="passwordArea">
+        <div class="passwordSet">
+          <button class="btn" @click="createPassword">產生新密碼</button>
+          <br />
+          <h2>選擇密碼長度</h2>
+          <select name="" id="" v-model="length">
+            <option v-for="list in lists" :value="list.value">{{ list.item}}</option>
+          </select>
+          <br />
+          <h2>選擇密碼組數</h2>
+          <select name="" id="" v-model="passwordAmounts">
+            <option :value="item" v-for="item in 10">產生{{item}}組密碼</option>
+          </select>
+          <br />
+          <h3>輸入大寫字母數量</h3>
+          <input v-model.number="upperCount" type="text" @input="validate($event)" />
+          <h3>輸入小寫字母數量</h3>
+          <input v-model.number="lowerCount" type="text" @input="validate($event)" />
+          <h3>輸入阿拉伯數字數量</h3>
+          <input v-model.number="numberCount" type="text" @input="validate($event)" />
+          <h3>輸入特殊服號數量</h3>
+          <input v-model.number="punctuationCount" type="text" @input="validate($event)" />
+        </div>
+        <div class="passwordResult">
+          <h3 v-if="passwordResult.length != 0">新密碼</h3>
+          <p v-for="item in passwordResult">{{item}}</p>
+        </div>
+      </div>
     </div>
 
     <script>
       Vue.createApp({
         data() {
           return {
-            password: "",
             lists: [
               { item: "6位數", value: 6 },
               { item: "8位數", value: 8 },
@@ -69,7 +72,7 @@
           getRandomNum(min, max) {
             return min + Math.floor(Math.random() * (max - min + 1));
           },
-          passwordCreate() {
+          createPassword() {
             this.passwordResult = [];
             if (
               this.upperCount + this.lowerCount + this.numberCount + this.punctuationCount != this.length ||
@@ -78,9 +81,7 @@
               alert("請輸入正確的密碼長度");
               return;
             }
-
             for (let i = 1; i <= this.passwordAmounts; i++) {
-              console.log("apple");
               let number = this.passwordParts(48, 57, this.numberCount);
               let upper = this.passwordParts(65, 90, this.upperCount);
               let lower = this.passwordParts(97, 122, this.lowerCount);
@@ -94,6 +95,9 @@
               str += String.fromCharCode(this.getRandomNum(min, max));
             }
             return str;
+          },
+          validate($event) {
+            $event.target.value = $event.target.value.replace(/^(0+)|[^\d]+/g, "");
           },
         },
       }).mount("#app");
