@@ -15,8 +15,9 @@
     <title>Document</title>
   </head>
   <body>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
     <script src="https://unpkg.com/vue@3"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 
     <div id="app">
       <div class="passwordArea">
@@ -44,10 +45,12 @@
         </div>
         <div class="passwordResult">
           <h3 v-if="passwordResult.length != 0">新密碼</h3>
-          <p v-for="item in passwordResult">{{item}}</p>
+          <p class="copy" v-for="item in passwordResult">{{item}}</p>
+          <button data-clipboard-target=".copy">複製</button>
         </div>
       </div>
     </div>
+    2
 
     <script>
       Vue.createApp({
@@ -101,6 +104,9 @@
           },
         },
       }).mount("#app");
+    </script>
+    <script>
+      new ClipboardJS(".copy");
     </script>
   </body>
 </html>
