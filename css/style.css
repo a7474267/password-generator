@@ -1,0 +1,107 @@
+#app {
+  width: 100vw;
+  height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+body {
+  cursor: default;
+  background: #258dc8;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(#258dc8), to(#258dc8));
+  background: linear-gradient(to bottom, #258dc8 0%, #258dc8 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#258dc8', endColorstr='#258dc8',GradientType=0 );
+  /* IE6-9 */
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body .btn {
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+body .btn.btnCreatePassword {
+  padding: 5px 10px;
+}
+
+body .btn.copyBtn {
+  border: 1px solid red;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px 8px;
+}
+
+body .passwordSet {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+body .passwordSet input {
+  margin-bottom: 10px;
+}
+
+body .passwordArea {
+  width: 600px;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .passwordResult {
+  min-width: 200px;
+  margin-bottom: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+body .passwordResult p {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px 8px;
+  color: #fff;
+  font-weight: bold;
+}
+
+body .passwordResult p:hover {
+  color: yellow;
+}
+
+select,
+input {
+  min-width: 200px;
+  border-radius: 5px;
+}
+/*# sourceMappingURL=style.css.map */

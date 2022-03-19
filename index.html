@@ -6,23 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link
       rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
-      integrity="sha512-NhSC1YmyruXifcj/KFRWoC561YpHpc5Jtzgvbuzx5VozKpWvQ+4nXhPdFgmx8xqexRcpAglTj9sIBWINXa8x5w=="
+      href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"
+      integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
-    <link rel="stylesheet" href="all.css" />
+    <link rel="stylesheet" href="css/style.css" />
     <title>Document</title>
   </head>
   <body>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.10/clipboard.min.js"></script>
 
     <div id="app">
       <div class="passwordArea">
         <div class="passwordSet">
-          <button class="btn" @click="createPassword">產生新密碼</button>
+          <button class="btn btnCreatePassword" @click="createPassword">產生新密碼</button>
           <br />
           <h2>選擇密碼長度</h2>
           <select name="" id="" v-model="length">
@@ -43,10 +42,12 @@
           <h3>輸入特殊服號數量</h3>
           <input v-model.number="punctuationCount" type="text" @input="validate($event)" />
         </div>
-        <div class="passwordResult">
+        <div>
           <h3 v-if="passwordResult.length != 0">新密碼</h3>
-          <p class="copy" v-for="item in passwordResult">{{item}}</p>
-          <button data-clipboard-target=".copy">複製</button>
+          <div v-for="item in passwordResult" class="passwordResult">
+            <p>{{item}}</p>
+            <div class="btn copyBtn" @click="clipboard(item)">複製密碼</div>
+          </div>
         </div>
       </div>
     </div>
@@ -102,11 +103,11 @@
           validate($event) {
             $event.target.value = $event.target.value.replace(/^(0+)|[^\d]+/g, "");
           },
+          clipboard(item) {
+            navigator.clipboard.writeText(item);
+          },
         },
       }).mount("#app");
-    </script>
-    <script>
-      new ClipboardJS(".copy");
     </script>
   </body>
 </html>
