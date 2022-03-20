@@ -24,13 +24,24 @@ body {
     cursor: pointer;
     &.btnCreatePassword {
       padding: 5px 10px;
+      &:hover {
+        background-color: grey;
+      }
     }
     &.copyBtn {
-      border: 1px solid red;
+      border: 1px solid black;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 5px 8px;
+      background: #fff;
+      position: relative;
+      &:hover {
+        background: grey;
+        span {
+          color: #fff;
+        }
+      }
     }
   }
   .passwordSet {
@@ -38,6 +49,10 @@ body {
     flex-direction: column;
     input {
       margin-bottom: 10px;
+    }
+    label {
+      margin-bottom: 5px;
+      font-weight: bold;
     }
   }
   .passwordArea {
@@ -60,6 +75,14 @@ body {
       &:hover {
         color: yellow;
       }
+    }
+    span {
+      display: none;
+    }
+    .success span {
+      display: block;
+      position: absolute;
+      right: -150px;
     }
   }
 }

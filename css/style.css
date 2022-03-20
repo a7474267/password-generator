@@ -37,8 +37,12 @@ body .btn.btnCreatePassword {
   padding: 5px 10px;
 }
 
+body .btn.btnCreatePassword:hover {
+  background-color: grey;
+}
+
 body .btn.copyBtn {
-  border: 1px solid red;
+  border: 1px solid black;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -49,6 +53,16 @@ body .btn.copyBtn {
       -ms-flex-align: center;
           align-items: center;
   padding: 5px 8px;
+  background: #fff;
+  position: relative;
+}
+
+body .btn.copyBtn:hover {
+  background: grey;
+}
+
+body .btn.copyBtn:hover span {
+  color: #fff;
 }
 
 body .passwordSet {
@@ -63,6 +77,11 @@ body .passwordSet {
 
 body .passwordSet input {
   margin-bottom: 10px;
+}
+
+body .passwordSet label {
+  margin-bottom: 5px;
+  font-weight: bold;
 }
 
 body .passwordArea {
@@ -97,6 +116,16 @@ body .passwordResult p {
 
 body .passwordResult p:hover {
   color: yellow;
+}
+
+body .passwordResult span {
+  display: none;
+}
+
+body .passwordResult .success span {
+  display: block;
+  position: absolute;
+  right: -150px;
 }
 
 select,

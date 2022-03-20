@@ -23,35 +23,34 @@
         <div class="passwordSet">
           <button class="btn btnCreatePassword" @click="createPassword">產生新密碼</button>
           <br />
-          <h2>選擇密碼長度</h2>
-          <select name="" id="" v-model="length">
+          <label for="length-select">選擇密碼長度</label>
+          <select name="" id="length-select" v-model="length">
             <option v-for="list in lists" :value="list.value">{{ list.item}}</option>
           </select>
           <br />
-          <h2>選擇密碼組數</h2>
-          <select name="" id="" v-model="passwordAmounts">
+          <label for="amounts-select">選擇密碼組數</label>
+          <select name="" id="amounts-select" v-model="passwordAmounts">
             <option :value="item" v-for="item in 10">產生{{item}}組密碼</option>
           </select>
           <br />
-          <h3>輸入大寫字母數量</h3>
-          <input v-model.number="upperCount" type="text" @input="validate($event)" />
-          <h3>輸入小寫字母數量</h3>
-          <input v-model.number="lowerCount" type="text" @input="validate($event)" />
-          <h3>輸入阿拉伯數字數量</h3>
-          <input v-model.number="numberCount" type="text" @input="validate($event)" />
-          <h3>輸入特殊服號數量</h3>
-          <input v-model.number="punctuationCount" type="text" @input="validate($event)" />
+          <label for="upperCount-select">輸入大寫字母數量</label>
+          <input id="upperCount-select" v-model.number="upperCount" type="text" @input="validate($event)" />
+          <label for="lowerCount-select">輸入小寫字母數量</label>
+          <input od="lowerCount-select" v-model.number="lowerCount" type="text" @input="validate($event)" />
+          <label for="numberCount-select">輸入數字數量</label>
+          <input id="numberCount-select" v-model.number="numberCount" type="text" @input="validate($event)" />
+          <label for="punctuationCount-select">輸入特殊符號數量</label>
+          <input id="punctuationCount-select" v-model.number="punctuationCount" type="text" @input="validate($event)" />
         </div>
         <div>
           <h3 v-if="passwordResult.length != 0">新密碼</h3>
           <div v-for="item in passwordResult" class="passwordResult">
             <p>{{item}}</p>
-            <div class="btn copyBtn" @click="clipboard(item)">複製密碼</div>
+            <div class="btn copyBtn" @click="clipboard($event, item)">複製密碼<span>已複製成功</span></div>
           </div>
         </div>
       </div>
     </div>
-    2
 
     <script>
       Vue.createApp({
@@ -70,6 +69,7 @@
             length: 0,
             passwordAmounts: 0,
             passwordResult: [],
+            isSuccess: false,
           };
         },
         methods: {
@@ -103,8 +103,12 @@
           validate($event) {
             $event.target.value = $event.target.value.replace(/^(0+)|[^\d]+/g, "");
           },
-          clipboard(item) {
+          clipboard($event, item) {
             navigator.clipboard.writeText(item);
+            $event.target.classList.add("success");
+            setTimeout(function () {
+              $event.target.classList.remove("success");
+            }, 1500);
           },
         },
       }).mount("#app");
