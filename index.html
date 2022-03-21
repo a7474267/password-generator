@@ -11,12 +11,14 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     />
+    <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
     <link rel="stylesheet" href="css/style.css" />
     <title>Document</title>
   </head>
   <body>
     <script src="https://unpkg.com/vue@3"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.15/lodash.min.js"></script>
+    <script src="https://unpkg.com/vue-select@latest"></script>
 
     <div id="app">
       <div class="passwordArea">
@@ -45,10 +47,12 @@
         <div>
           <h3 v-if="passwordResult.length != 0">新密碼</h3>
           <div v-for="item in passwordResult" class="passwordResult">
-            <p>{{item}}</p>
-            <div class="btn copyBtn" @click="clipboard($event, item)">複製密碼<span>已複製成功</span></div>
+            <p>{{item.password}}</p>
+            <div class="btn copyBtn" @click="clipboard($event, item)">複製密碼</div>
+            <p v-show="item.success">已複製成功</p>
           </div>
         </div>
+        <v-select :options="options">輸入</v-select>
       </div>
     </div>
 
@@ -69,8 +73,11 @@
             length: 0,
             passwordAmounts: 0,
             passwordResult: [],
-            isSuccess: false,
+            options: ['foo', 'bar', 'baz']
           };
+        },
+        components: {
+          'v-select': window["VueSelect.VueSelect"]
         },
         methods: {
           getRandomNum(min, max) {
@@ -90,7 +97,12 @@
               let upper = this.passwordParts(65, 90, this.upperCount);
               let lower = this.passwordParts(97, 122, this.lowerCount);
               let punctuation = this.passwordParts(33, 47, this.punctuationCount);
-              this.passwordResult.push(_.shuffle(number + upper + lower + punctuation).join(""));
+              this.passwordResult.push(
+                {
+                  password: _.shuffle(number + upper + lower + punctuation).join(""),
+                  success: false
+                }
+              );
             }
           },
           passwordParts(min, max, count) {
@@ -104,11 +116,9 @@
             $event.target.value = $event.target.value.replace(/^(0+)|[^\d]+/g, "");
           },
           clipboard($event, item) {
-            navigator.clipboard.writeText(item);
-            $event.target.classList.add("success");
-            setTimeout(function () {
-              $event.target.classList.remove("success");
-            }, 1500);
+            navigator.clipboard.writeText(item.password);
+            item.success = true;
+            setTimeout(() => item.success = false, 1500);
           },
         },
       }).mount("#app");

@@ -104,6 +104,7 @@ body .passwordResult {
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  position: relative;
 }
 
 body .passwordResult p {
@@ -118,14 +119,9 @@ body .passwordResult p:hover {
   color: yellow;
 }
 
-body .passwordResult span {
-  display: none;
-}
-
-body .passwordResult .success span {
-  display: block;
+body .passwordResult p:last-child {
   position: absolute;
-  right: -150px;
+  right: -110px;
 }
 
 select,

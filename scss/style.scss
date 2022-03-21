@@ -66,6 +66,7 @@ body {
     margin-bottom: 5px;
     display: flex;
     justify-content: space-between;
+    position: relative;
     p {
       border: 1px solid black;
       border-radius: 5px;
@@ -76,13 +77,9 @@ body {
         color: yellow;
       }
     }
-    span {
-      display: none;
-    }
-    .success span {
-      display: block;
+    p:last-child{
       position: absolute;
-      right: -150px;
+      right: -110px;
     }
   }
 }
